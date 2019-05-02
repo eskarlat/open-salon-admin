@@ -1,0 +1,19 @@
+.widget__progress-bar {
+    display: block;
+    position: fixed;
+    height: .3rem;
+    width: 0%;
+    background-color: var(--color-primary);
+    z-index: 20;
+    box-shadow: var(--shadow-light);
+    transition: all .1s cubic-bezier(0.6, 0.04, 0.98, 0.335);
+
+    &--start {
+        width: 10%;
+    }
+
+    &--done {
+        width: 100%;
+    }
+}
+

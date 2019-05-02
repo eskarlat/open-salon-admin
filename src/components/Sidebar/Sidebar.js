@@ -1,0 +1,55 @@
+import React, { Component } from "react";
+
+//style
+import "./Sidebar.scss";
+
+//Components
+import SidebarItem from "../Sidebar/SidebarItem/SidebarItem";
+
+//icons
+import SalonsIcon from "../../assets/SVG/shop.svg";
+import LocationIcon from "../../assets/SVG/location.svg";
+import ServicesIcon from "../../assets/SVG/colours.svg";
+import MastersIcon from "../../assets/SVG/users.svg";
+import ClientIcon from "../../assets/SVG/man.svg";
+import ReservationIcon from "../../assets/SVG/open-book.svg";
+import NoUser from "../../assets/img/no-user.jpg";
+import Logo from "../../assets/img/logo-white.png";
+
+class Sidebar extends Component {
+    render() {
+        const sidebarItems = [
+            { id: 1, title: "Salons", url: "/salons", icon: SalonsIcon },
+            { id: 2, title: "Location", url: "/locations", icon: LocationIcon },
+            { id: 3, title: "Services", url: "/services", icon: ServicesIcon },
+            { id: 4, title: "Masters", url: "/masters", icon: MastersIcon },
+            {
+                id: 5,
+                title: "Reservations",
+                url: "/reservations",
+                icon: ReservationIcon
+            },
+            { id: 6, title: "Clients", url: "/clients", icon: ClientIcon }
+        ];
+        return (
+            <div className="os-sidebar">
+                <img src={Logo} alt="Logo" className="os-sidebar__logo" />
+                <nav className="os-sidebar__navigation">
+                    {sidebarItems.map(item => (
+                        <SidebarItem key={item.id} item={item} />
+                    ))}
+                </nav>
+                <div className="os-sidebar__profile">
+                    <img
+                        src={NoUser}
+                        alt="Profile"
+                        className="os-sidebar__profile--avatar"
+                    />
+                    <span className="os-sidebar__profile--name">Evgeny</span>
+                </div>
+            </div>
+        );
+    }
+}
+
+export default Sidebar;

@@ -1,0 +1,30 @@
+.heading-primary {
+    &--main {
+        display: block;
+        font-size: 6rem;
+        font-weight: 400;
+        color: currentColor;
+    }
+    
+    &--sub {
+        display: block;
+        font-size: 2rem;
+        font-weight: 400;
+    }
+}
+
+.heading-secondary {
+    font-size: 3rem;
+    color: currentColor;
+    text-transform: capitalize;
+}
+
+.heading-4 {
+    font-size: 2rem;
+    font-weight: 400;
+    color: currentColor;
+}
+
+.paragraph {
+    font-size: 1.5rem;
+}

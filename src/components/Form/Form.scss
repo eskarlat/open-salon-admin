@@ -1,0 +1,37 @@
+.os-form {
+    width: 100%;
+    margin-top: 1.5rem;
+
+    &-group {
+        margin-bottom: 2rem;
+    }
+
+    &--label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        font-size: 1.5rem;
+    }
+
+    &--input {
+        border: 1px solid var(--color-grey-light-4);
+        border-radius: 7px;
+        padding: 2rem;
+        width: 100%;
+        font-size: 1.5rem;
+        outline: none;
+
+        &--help-text {
+            color: orangered;
+            font-size: 1.2rem;
+            text-transform: capitalize;
+            margin: 1rem;
+        }
+        
+        resize: none;
+    }
+
+    &--has-error {
+        border: 1px solid orangered;
+    }
+}

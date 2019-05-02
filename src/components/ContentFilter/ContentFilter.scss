@@ -1,0 +1,9 @@
+.os-content-filter {
+    &__input {
+        padding: 2rem;
+        margin: 1.5rem 0;
+        width: 100%;
+        border: 1px solid var(--color-grey-light-3);
+        outline: none;
+    }
+}

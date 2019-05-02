@@ -1,26 +1,53 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.scss";
+
+import { Switch, Route, Redirect } from "react-router-dom";
+
+//Components
+import Basic from "./layouts/Basic/Basic";
+import ContentLayout from "./layouts/Content/Content";
+
+//Containers
+import SalonsContainer from "./containers/Salons/Salons";
+import LocationsContainer from "./containers/Locations/Locations";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    let routers = (
+        <React.Fragment>
+            <Switch>
+                <Route
+                    path="/salons/:action/:item"
+                    exact
+                    component={SalonsContainer}
+                />
+                <Route
+                    path="/salons/:action"
+                    exact
+                    component={SalonsContainer}
+                />
+                <Route path="/salons" exact component={SalonsContainer} />
+            </Switch>
+            <Switch>
+                <Route
+                    path="/locations/:action/:item"
+                    exact
+                    component={LocationsContainer}
+                />
+                <Route
+                    path="/locations/:action"
+                    exact
+                    component={LocationsContainer}
+                />
+                <Route path="/locations" exact component={LocationsContainer} />
+            </Switch>
+        </React.Fragment>
+    );
+
+    return (
+        <Basic>
+            <ContentLayout>{routers}</ContentLayout>
+        </Basic>
+    );
 }
 
 export default App;

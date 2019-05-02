@@ -1,0 +1,14 @@
+.os-content-sidebar {
+    flex: 0 0 20%;
+
+    background-color: var(--color-grey-light-2);
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+
+        &--actions {
+            
+        }
+    }
+}
