@@ -28,8 +28,10 @@ export const fetchSalons = ownerId => {
         dispatch(fetchSalonsStart());
 
         try {
-            const response = await axios.post("salons", {
-                owner: ownerId
+            const response = await axios.get("salons", {
+                params: {
+                    owner: ownerId
+                }
             });
             dispatch(fetchSalonsSuccess(response.data));
         } catch (error) {

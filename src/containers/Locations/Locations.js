@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import _ from "lodash";
 
 //Components
 import ContentSidebarItem from "../../components/ContentSidebar/ContentSidebarItem/ContentSidebarItem";
@@ -23,7 +24,7 @@ const LOCATIONS_ACTIONS = {
     delete: "DELETE"
 };
 
-class Salons extends Component {
+class Location extends Component {
     state = {
         form: {
             salon: {
@@ -38,6 +39,7 @@ class Salons extends Component {
                     required: true,
                     min: 5
                 }),
+                options: [],
                 valid: false,
                 touched: false
             },
@@ -61,7 +63,7 @@ class Salons extends Component {
             open: {
                 elementType: "input",
                 elementConfig: {
-                    type: "number",
+                    type: "text",
                     name: "open"
                 },
                 label: "Open time",
@@ -75,11 +77,25 @@ class Salons extends Component {
             close: {
                 elementType: "input",
                 elementConfig: {
-                    type: "number",
+                    type: "text",
                     name: "close"
                 },
                 label: "Close time",
                 value: "",
+                validation: validation({
+                    required: true
+                }),
+                valid: false,
+                touched: false
+            },
+            reservationTimePeriod: {
+                elementType: "input",
+                elementConfig: {
+                    type: "number",
+                    name: "close"
+                },
+                label: "Reservation time period",
+                value: "15",
                 validation: validation({
                     required: true
                 }),
@@ -97,6 +113,7 @@ class Salons extends Component {
     componentDidMount() {
         const owner = "5cbefd480a9d662b3c917583";
         this.props.fetchLocations(owner);
+        this.props.fetchSalons(owner);
     }
 
     componentDidUpdate() {
@@ -137,6 +154,20 @@ class Salons extends Component {
                 this.setState({ form: updateForm, formIsValid: false });
             });
         }
+
+        if (nextProps.salons) {
+            const updateForm = this.state.form;
+
+            updateForm.salon.options = nextProps.salons.map(salon => {
+                const s = _.pick(salon, ["_id", "title"]);
+                return {
+                    value: s._id,
+                    title: s.title
+                };
+            });
+
+            this.setState({ form: updateForm });
+        }
     }
 
     onProvideContent = (action, locationId = null) => {
@@ -159,6 +190,7 @@ class Salons extends Component {
 
                         for (let field in updateForm) {
                             updateForm[field].value = location[field];
+                            updateForm[field].valid = true;
                         }
 
                         this.setState({ form: updateForm, formIsValid: true });
@@ -185,7 +217,7 @@ class Salons extends Component {
         const filter = filterString.toLowerCase();
 
         filteredItems = filteredItems.filter(item => {
-            const firstName = item.title.toLowerCase();
+            const firstName = item.address.toLowerCase();
             return firstName.indexOf(filter) !== -1;
         });
 
@@ -218,7 +250,7 @@ class Salons extends Component {
     onModalConfirm = () => {
         const owner = "5cbefd480a9d662b3c917583";
         const locationId = this.state.selectedItem;
-        this.props.deleteSalon(owner, locationId);
+        this.props.deleteLocation(owner, locationId);
     };
 
     onModalClose = () => {
@@ -235,11 +267,16 @@ class Salons extends Component {
 
         switch (this.state.action) {
             case LOCATIONS_ACTIONS.create:
-                this.props.createLocation(owner, formData);
+                this.props.createLocation(owner, {
+                    location: formData
+                });
                 break;
             case LOCATIONS_ACTIONS.edit:
                 const locationId = this.state.selectedItem;
-                this.props.updateLocation(owner, locationId, formData);
+                this.props.updateLocation(owner, {
+                    locationId,
+                    location: formData
+                });
                 break;
             default:
                 break;
@@ -272,7 +309,8 @@ class Salons extends Component {
                     {locations.map(location => (
                         <ContentSidebarItem
                             key={location._id}
-                            item={location}
+                            title={location.address}
+                            id={location._id}
                             onEdit={this.onEditHandler}
                             onDelete={this.onDeleteHandler}
                         />
@@ -317,24 +355,26 @@ class Salons extends Component {
 
 const mapStateToProps = state => {
     return {
-        isSuccess: state.sal.isSuccess,
+        isSuccess: state.loc.isSuccess,
+        salons: state.sal.salons,
         locations: state.loc.locations
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        fetchSalons: ownerId => dispatch(actions.fetchSalons(ownerId)),
         fetchLocations: ownerId => dispatch(actions.fetchLocations(ownerId)),
-        createLocation: (owner, location) =>
-            dispatch(actions.createLocation(owner, location)),
-        updateLocation: (owner, locationId, location) =>
-            dispatch(actions.updateLocation(owner, locationId, location)),
-        deleteLocation: (owner, locationId) =>
-            dispatch(actions.deleteLocation(owner, locationId))
+        createLocation: (ownerId, locationData) =>
+            dispatch(actions.createLocation(ownerId, locationData)),
+        updateLocation: (ownerId, locationData) =>
+            dispatch(actions.updateLocation(ownerId, locationData)),
+        deleteLocation: (ownerId, locationId) =>
+            dispatch(actions.deleteLocation(ownerId, locationId))
     };
 };
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Salons);
+)(Location);

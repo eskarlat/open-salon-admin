@@ -1,0 +1,14 @@
+.os-reservation-table {
+    width: 100%;
+
+    &--header {
+        font-size: 2rem;
+        font-weight: 600;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &--btn {
+        cursor: pointer;
+    }
+}

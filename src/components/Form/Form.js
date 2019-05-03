@@ -27,6 +27,7 @@ const Form = props => {
                     helperText={formElement.config.helperText}
                     shouldValidate={formElement.config.validation}
                     touched={formElement.config.touched}
+                    options={formElement.config.options}
                     key={formElement.id}
                 />
             ))}

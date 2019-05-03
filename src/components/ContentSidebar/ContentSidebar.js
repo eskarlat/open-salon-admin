@@ -17,12 +17,14 @@ class ContentSidebar extends Component {
                             {this.props.title}
                         </h2>
                         <div className="os-content-sidebar__header--actions">
-                            <button
-                                className="btn btn--green"
-                                onClick={this.props.onCreate}
-                            >
-                                New
-                            </button>
+                            {!this.props.hideBtn && (
+                                <button
+                                    className="btn btn--green"
+                                    onClick={this.props.onCreate}
+                                >
+                                    New
+                                </button>
+                            )}
                         </div>
                     </div>
                     <Filter onFilter={this.props.onFilter} />

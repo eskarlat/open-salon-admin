@@ -58,6 +58,35 @@ const FormControl = props => {
                 </div>
             );
             break;
+        case "select":
+            inputElement = (
+                <div className="os-form-group">
+                    <label
+                        htmlFor={props.elementConfig.name}
+                        className="os-form--label"
+                    >
+                        {props.label}
+                    </label>
+                    <select
+                        id={props.elementConfig.name}
+                        {...props.elementConfig}
+                        value={props.value._id}
+                        onChange={props.changed}
+                        className={itemClass}
+                    >
+                        <option value="">Select option</option>
+                        {props.options.map(option => {
+                            return (
+                                <option value={option.value}>
+                                    {option.title}
+                                </option>
+                            );
+                        })}
+                    </select>
+                    {hasError && <p>{props.helperText}</p>}
+                </div>
+            );
+            break;
         default:
             break;
     }

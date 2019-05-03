@@ -12,6 +12,11 @@ import axios from "axios";
 
 //Reducers
 import salonsReducer from "./store/reducers/salons";
+import locationsReducer from "./store/reducers/locations";
+import servicesReducer from "./store/reducers/services";
+import mastersReducer from "./store/reducers/masters";
+import reservationsReducer from "./store/reducers/reservations";
+import clientsReducer from "./store/reducers/clients";
 
 const redux =
     process.env.NODE_ENV === "development"
@@ -21,7 +26,12 @@ const redux =
 const composeEnhancers = redux || compose;
 
 const rootReducer = combineReducers({
-    sal: salonsReducer
+    sal: salonsReducer,
+    loc: locationsReducer,
+    ser: servicesReducer,
+    mas: mastersReducer,
+    res: reservationsReducer,
+    cl: clientsReducer
 });
 
 const store = createStore(

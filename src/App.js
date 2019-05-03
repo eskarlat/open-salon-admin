@@ -10,6 +10,10 @@ import ContentLayout from "./layouts/Content/Content";
 //Containers
 import SalonsContainer from "./containers/Salons/Salons";
 import LocationsContainer from "./containers/Locations/Locations";
+import ServicesContainer from "./containers/Services/Services";
+import MastersContainer from "./containers/Masters/Masters";
+import ReservationsContainer from "./containers/Reservations/Reservations";
+import ClientsContainer from "./containers/Clients/Clients";
 
 function App() {
     let routers = (
@@ -39,6 +43,42 @@ function App() {
                     component={LocationsContainer}
                 />
                 <Route path="/locations" exact component={LocationsContainer} />
+            </Switch>
+            <Switch>
+                <Route
+                    path="/services/:action/:item"
+                    exact
+                    component={ServicesContainer}
+                />
+                <Route
+                    path="/services/:action"
+                    exact
+                    component={ServicesContainer}
+                />
+                <Route path="/services" exact component={ServicesContainer} />
+            </Switch>
+            <Switch>
+                <Route
+                    path="/masters/:action/:item"
+                    exact
+                    component={MastersContainer}
+                />
+                <Route
+                    path="/masters/:action"
+                    exact
+                    component={MastersContainer}
+                />
+                <Route path="/masters" exact component={MastersContainer} />
+            </Switch>
+            <Switch>
+                <Route
+                    path="/reservations"
+                    exact
+                    component={ReservationsContainer}
+                />
+            </Switch>
+            <Switch>
+                <Route path="/clients" exact component={ClientsContainer} />
             </Switch>
         </React.Fragment>
     );

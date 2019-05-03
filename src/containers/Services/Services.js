@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import _ from "lodash";
 
 //Components
 import ContentSidebarItem from "../../components/ContentSidebar/ContentSidebarItem/ContentSidebarItem";
@@ -16,16 +17,32 @@ import { updateObject, validation, updateForm } from "../../shared/utility";
 import * as actions from "../../store/actions/index";
 import Alert from "../../components/ContentMain/Alert/Alert";
 
-const SALONS_ACTIONS = {
+const SERVICES_ACTIONS = {
     index: "INDEX",
     create: "CREATE",
     edit: "EDIT",
     delete: "DELETE"
 };
 
-class Salons extends Component {
+class Services extends Component {
     state = {
         form: {
+            salon: {
+                elementType: "select",
+                elementConfig: {
+                    name: "salonId",
+                    autoFocus: true
+                },
+                label: "Salon",
+                value: "",
+                validation: validation({
+                    required: true,
+                    min: 5
+                }),
+                options: [],
+                valid: false,
+                touched: false
+            },
             title: {
                 elementType: "input",
                 elementConfig: {
@@ -43,13 +60,13 @@ class Salons extends Component {
                 valid: false,
                 touched: false
             },
-            logo: {
+            duration: {
                 elementType: "input",
                 elementConfig: {
-                    type: "text",
-                    name: "logo"
+                    type: "number",
+                    name: "duration"
                 },
-                label: "Logo",
+                label: "Duration",
                 value: "",
                 validation: validation({
                     required: true
@@ -57,29 +74,31 @@ class Salons extends Component {
                 valid: false,
                 touched: false
             },
-            description: {
-                elementType: "textarea",
+            cost: {
+                elementType: "input",
                 elementConfig: {
-                    type: "email",
-                    name: "description",
-                    placeholder: "Enter description"
+                    type: "number",
+                    name: "cost"
                 },
-                label: "Description",
+                label: "Cost",
                 value: "",
-                validation: validation({}),
+                validation: validation({
+                    required: true
+                }),
                 valid: false,
                 touched: false
             }
         },
         filteredItems: [],
         formIsValid: false,
-        action: SALONS_ACTIONS.index,
+        action: SERVICES_ACTIONS.index,
         selectedItem: null,
         modalShown: false
     };
 
     componentDidMount() {
         const owner = "5cbefd480a9d662b3c917583";
+        this.props.fetchServices(owner);
         this.props.fetchSalons(owner);
     }
 
@@ -88,7 +107,7 @@ class Salons extends Component {
             match: { params }
         } = this.props;
 
-        const currentAction = SALONS_ACTIONS[params.action];
+        const currentAction = SERVICES_ACTIONS[params.action];
         const selectedItem = params.item;
 
         if (
@@ -109,9 +128,9 @@ class Salons extends Component {
     componentWillReceiveProps(nextProps) {
         if (
             nextProps.isSuccess &&
-            this.state.action === SALONS_ACTIONS.create
+            this.state.action === SERVICES_ACTIONS.create
         ) {
-            this.props.salons.map(salon => {
+            this.props.services.map(service => {
                 const updateForm = this.state.form;
 
                 for (let field in updateForm) {
@@ -121,12 +140,26 @@ class Salons extends Component {
                 this.setState({ form: updateForm, formIsValid: false });
             });
         }
+
+        if (nextProps.salons) {
+            const updateForm = this.state.form;
+
+            updateForm.salon.options = nextProps.salons.map(salon => {
+                const s = _.pick(salon, ["_id", "title"]);
+                return {
+                    value: s._id,
+                    title: s.title
+                };
+            });
+
+            this.setState({ form: updateForm });
+        }
     }
 
-    onProvideContent = (action, salonId = null) => {
+    onProvideContent = (action, serviceId = null) => {
         switch (action) {
-            case SALONS_ACTIONS.create:
-                this.props.salons.map(salon => {
+            case SERVICES_ACTIONS.create:
+                this.props.services.map(service => {
                     const updateForm = this.state.form;
 
                     for (let field in updateForm) {
@@ -136,13 +169,13 @@ class Salons extends Component {
                     this.setState({ form: updateForm, formIsValid: false });
                 });
                 break;
-            case SALONS_ACTIONS.edit:
-                this.props.salons.map(salon => {
-                    if (salon._id === salonId) {
+            case SERVICES_ACTIONS.edit:
+                this.props.services.map(service => {
+                    if (service._id === serviceId) {
                         const updateForm = this.state.form;
 
                         for (let field in updateForm) {
-                            updateForm[field].value = salon[field];
+                            updateForm[field].value = service[field];
                             updateForm[field].valid = true;
                         }
 
@@ -166,7 +199,7 @@ class Salons extends Component {
     };
 
     filterHandler = filterString => {
-        let filteredItems = this.props.salons;
+        let filteredItems = this.props.services;
         const filter = filterString.toLowerCase();
 
         filteredItems = filteredItems.filter(item => {
@@ -178,19 +211,22 @@ class Salons extends Component {
     };
 
     onCreateHandler = event => {
-        this.props.history.push("/salons/create");
-        this.onProvideContent(SALONS_ACTIONS.create);
-        this.setState({ action: SALONS_ACTIONS.create });
+        this.props.history.push("/services/create");
+        this.onProvideContent(SERVICES_ACTIONS.create);
+        this.setState({ action: SERVICES_ACTIONS.create });
     };
 
-    onEditHandler = (event, salonId) => {
-        this.props.history.push(`/salons/edit/${salonId}`);
-        this.onProvideContent(SALONS_ACTIONS.edit, salonId);
-        this.setState({ action: SALONS_ACTIONS.edit, selectedItem: salonId });
+    onEditHandler = (event, serviceId) => {
+        this.props.history.push(`/services/edit/${serviceId}`);
+        this.onProvideContent(SERVICES_ACTIONS.edit, serviceId);
+        this.setState({
+            action: SERVICES_ACTIONS.edit,
+            selectedItem: serviceId
+        });
     };
 
-    onDeleteHandler = (event, salonId) => {
-        this.setState({ selectedItem: salonId, modalShown: true });
+    onDeleteHandler = (event, serviceId) => {
+        this.setState({ selectedItem: serviceId, modalShown: true });
     };
 
     onAlertCloseHandler = () => {
@@ -199,8 +235,8 @@ class Salons extends Component {
 
     onModalConfirm = () => {
         const owner = "5cbefd480a9d662b3c917583";
-        const salonId = this.state.selectedItem;
-        this.props.deleteSalon(owner, salonId);
+        const serviceId = this.state.selectedItem;
+        this.props.deleteService(owner, serviceId);
     };
 
     onModalClose = () => {
@@ -216,12 +252,17 @@ class Salons extends Component {
         }
 
         switch (this.state.action) {
-            case SALONS_ACTIONS.create:
-                this.props.createSalon(owner, formData);
+            case SERVICES_ACTIONS.create:
+                this.props.createService(owner, {
+                    service: formData
+                });
                 break;
-            case SALONS_ACTIONS.edit:
-                const salonId = this.state.selectedItem;
-                this.props.updateSalon(owner, salonId, formData);
+            case SERVICES_ACTIONS.edit:
+                const serviceId = this.state.selectedItem;
+                this.props.updateService(owner, {
+                    serviceId: serviceId,
+                    service: formData
+                });
                 break;
             default:
                 break;
@@ -229,18 +270,18 @@ class Salons extends Component {
     };
 
     render() {
-        let salons = null;
+        let services = null;
 
         if (this.state.filteredItems.length > 0) {
-            salons = this.state.filteredItems;
+            services = this.state.filteredItems;
         } else {
-            salons = this.props.salons;
+            services = this.props.services;
         }
 
         const title =
-            this.state.action === SALONS_ACTIONS.edit
+            this.state.action === SERVICES_ACTIONS.edit
                 ? "Edit"
-                : this.state.action === SALONS_ACTIONS.create
+                : this.state.action === SERVICES_ACTIONS.create
                 ? "Create"
                 : null;
 
@@ -248,15 +289,14 @@ class Salons extends Component {
             <React.Fragment>
                 <ContentSidebar
                     onFilter={this.filterHandler}
-                    title={"salons"}
+                    title={"Services"}
                     onCreate={this.onCreateHandler}
                 >
-                    {salons.map(salon => (
+                    {services.map(service => (
                         <ContentSidebarItem
-                            key={salon._id}
-                            title={salon.title}
-                            image={salon.logo}
-                            id={salon._id}
+                            key={service._id}
+                            title={service.title}
+                            id={service._id}
                             onEdit={this.onEditHandler}
                             onDelete={this.onDeleteHandler}
                         />
@@ -266,12 +306,12 @@ class Salons extends Component {
                 <ContentMain title={title}>
                     {this.props.isSuccess && (
                         <Alert closed={this.onAlertCloseHandler}>
-                            Salon has been updated.
+                            Service has been updated.
                         </Alert>
                     )}
                     <Panel>
-                        {(this.state.action === SALONS_ACTIONS.edit ||
-                            this.state.action === SALONS_ACTIONS.create) && (
+                        {(this.state.action === SERVICES_ACTIONS.edit ||
+                            this.state.action === SERVICES_ACTIONS.create) && (
                             <React.Fragment>
                                 <Form
                                     form={this.state.form}
@@ -301,24 +341,26 @@ class Salons extends Component {
 
 const mapStateToProps = state => {
     return {
-        isSuccess: state.sal.isSuccess,
-        salons: state.sal.salons
+        isSuccess: state.ser.isSuccess,
+        salons: state.sal.salons,
+        services: state.ser.services
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         fetchSalons: ownerId => dispatch(actions.fetchSalons(ownerId)),
-        createSalon: (owner, salon) =>
-            dispatch(actions.createSalon(owner, salon)),
-        updateSalon: (owner, salonId, salon) =>
-            dispatch(actions.updateSalon(owner, salonId, salon)),
-        deleteSalon: (owner, salonId) =>
-            dispatch(actions.deleteSalon(owner, salonId))
+        fetchServices: ownerId => dispatch(actions.fetchServices(ownerId)),
+        createService: (ownerId, serviceData) =>
+            dispatch(actions.createService(ownerId, serviceData)),
+        updateService: (ownerId, serviceData) =>
+            dispatch(actions.updateService(ownerId, serviceData)),
+        deleteService: (ownerId, serviceId) =>
+            dispatch(actions.deleteService(ownerId, serviceId))
     };
 };
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Salons);
+)(Services);

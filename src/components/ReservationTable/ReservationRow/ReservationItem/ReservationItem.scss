@@ -1,0 +1,54 @@
+.os-reservation-item {
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    &__info-box {
+        flex: 0 0 40%;
+        display: flex;
+        flex-direction: column;
+        font-size: 1.2rem;
+        &--item {
+            padding: 0.3rem;
+            border-bottom: 1px solid var(--color-grey-light-3);
+        }
+    }
+    &__service-list {
+        &--item {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+    }
+
+    &__client {
+        display: flex;
+        background-color: var(--color-grey-light-1);
+        padding: 1rem;
+        border-radius: 7px;
+        height: 9rem;
+        &--image {
+            width: 6rem;
+            height: 6rem;
+            border-radius: 50%;
+        }
+
+        &--info {
+            margin-left: 1.5rem;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        &--name {
+            text-transform: capitalize;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        &--phone {
+            font-size: 1.5rem;
+        }
+    }
+}

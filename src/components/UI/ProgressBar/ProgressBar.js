@@ -13,7 +13,13 @@ class ProgressBar extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const isLoading = nextProps.loadingSalons;
+        const isLoading =
+            nextProps.loadingSalons ||
+            nextProps.loadingLocations ||
+            nextProps.loadingServers ||
+            nextProps.loadingMasters ||
+            nextProps.loadingReservations ||
+            nextProps.loadingClients;
 
         const addClass = isLoading
             ? "widget__progress-bar--start"
@@ -38,7 +44,12 @@ class ProgressBar extends Component {
 
 const mapStateToProps = state => {
     return {
-        loadingSalons: state.sal.loading
+        loadingSalons: state.sal.loading,
+        loadingLocations: state.loc.loading,
+        loadingServers: state.ser.loading,
+        loadingMasters: state.mas.loading,
+        loadingReservations: state.res.loading,
+        loadingClients: state.cl.loading
     };
 };
 
