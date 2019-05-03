@@ -75,7 +75,8 @@ class Salons extends Component {
         formIsValid: false,
         action: SALONS_ACTIONS.index,
         selectedItem: null,
-        modalShown: false
+        modalShown: false,
+        widgetModalShown: false
     };
 
     componentDidMount() {
@@ -228,6 +229,16 @@ class Salons extends Component {
         }
     };
 
+    onGetWidget = (event, salonId) => {
+        this.setState({ widgetModalShown: true });
+        this.setState({ selectedItem: salonId });
+    };
+
+    onGetWidgetModalClose = () => {
+        this.setState({ widgetModalShown: false });
+        this.setState({ selectedItem: null });
+    };
+
     render() {
         let salons = null;
 
@@ -257,8 +268,10 @@ class Salons extends Component {
                             title={salon.title}
                             image={salon.logo}
                             id={salon._id}
+                            salonPage={true}
                             onEdit={this.onEditHandler}
                             onDelete={this.onDeleteHandler}
+                            onGetWidget={this.onGetWidget}
                         />
                     ))}
                 </ContentSidebar>
@@ -289,10 +302,48 @@ class Salons extends Component {
                     </Panel>
                 </ContentMain>
                 {this.state.modalShown && (
+                    <Modal title="Delete" closed={this.onModalClose}>
+                        <span className="widget__modal--text">
+                            Are you sure?
+                        </span>
+                        <div className="widget__modal--footer">
+                            <button
+                                className="btn btn-primary"
+                                onClick={this.onModalConfirm}
+                            >
+                                Yes
+                            </button>
+                        </div>
+                    </Modal>
+                )}
+
+                {this.state.widgetModalShown && (
                     <Modal
-                        clicked={this.onModalConfirm}
-                        closed={this.onModalClose}
-                    />
+                        title="Set widget"
+                        closed={this.onGetWidgetModalClose}
+                    >
+                        <div className="widget__modal--text">
+                            <p>
+                                Copy this code and past before closing "body"
+                                tag
+                            </p>
+                            <p>
+                                Create book button just set id{" "}
+                                <pre>
+                                    <code>
+                                        {
+                                            '<button id="open-salon-book-btn">Book</button>'
+                                        }
+                                    </code>
+                                </pre>
+                            </p>
+                            <textarea className="os-form--input">
+                                {`<script src="http://localhost:3000/static/widget.js?salon=${
+                                    this.state.selectedItem
+                                }"></script>`}
+                            </textarea>
+                        </div>
+                    </Modal>
                 )}
             </React.Fragment>
         );

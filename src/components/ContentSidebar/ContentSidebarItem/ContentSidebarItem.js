@@ -37,6 +37,16 @@ const ContentSidebarItem = props => {
                         >
                             Delete
                         </button>
+                        {props.salonPage && (
+                            <button
+                                className="os-content-sidebar__item--button"
+                                onClick={event =>
+                                    props.onGetWidget(event, props.id)
+                                }
+                            >
+                                Get widget
+                            </button>
+                        )}
                     </div>
                 )}
             </figcaption>

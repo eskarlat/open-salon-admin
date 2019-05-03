@@ -6,10 +6,13 @@ import "./Modal.scss";
 
 const Modal = props => {
     return (
-        <Backdrop clicked={props.closed}>
+        <React.Fragment>
+            <Backdrop clicked={props.closed} />
             <div className="widget__modal">
                 <div className="widget__modal--header">
-                    <h4 className="widget__modal--header--text">Delete</h4>
+                    <h4 className="widget__modal--header--text">
+                        {props.title}
+                    </h4>
                     <span
                         className="widget__modal--header--close"
                         onClick={props.closed}
@@ -17,19 +20,9 @@ const Modal = props => {
                         &times;
                     </span>
                 </div>
-                <div className="widget__modal--body">
-                    <span className="widget__modal--text">Are you sure?</span>
-                    <div className="widget__modal--footer">
-                        <button
-                            className="btn btn-primary"
-                            onClick={props.clicked}
-                        >
-                            Yes
-                        </button>
-                    </div>
-                </div>
+                <div className="widget__modal--body">{props.children}</div>
             </div>
-        </Backdrop>
+        </React.Fragment>
     );
 };
 
