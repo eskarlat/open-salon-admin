@@ -4,11 +4,11 @@ import React from "react";
 import "./ContentSidebarItem.scss";
 
 const ContentSidebarItem = props => {
+    const clikced = props.hideBtn
+        ? event => props.clicked(event, props.id)
+        : null;
     return (
-        <figure
-            className="os-content-sidebar__item"
-            onClick={event => props.clicked(event, props.id)}
-        >
+        <figure className="os-content-sidebar__item" onClick={clikced}>
             {props.image && (
                 <img
                     className="os-content-sidebar__item--image"
