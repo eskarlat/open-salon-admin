@@ -23,14 +23,14 @@ export const fetchSalonsStart = () => {
     };
 };
 
-export const fetchSalons = ownerId => {
+export const fetchSalons = token => {
     return async dispatch => {
         dispatch(fetchSalonsStart());
 
         try {
             const response = await axios.get("salons", {
                 params: {
-                    owner: ownerId
+                    token: token
                 }
             });
             dispatch(fetchSalonsSuccess(response.data));
@@ -75,17 +75,17 @@ export const createSalonStart = () => {
     };
 };
 
-export const createSalon = (owner, salon) => {
+export const createSalon = (token, salon) => {
     return async dispatch => {
         dispatch(createSalonStart());
 
         try {
             const response = await axios.post("salons/create", {
-                owner,
+                token,
                 salon
             });
             dispatch(createSalonSuccess(response.data));
-            dispatch(fetchSalons(owner));
+            dispatch(fetchSalons(token));
             dispatch(resetDataAfterAction());
         } catch (error) {
             dispatch(createSalonFail(error));
@@ -114,17 +114,18 @@ export const updateSalonStart = () => {
     };
 };
 
-export const updateSalon = (owner, salonId, salon) => {
+export const updateSalon = (token, salonId, salon) => {
     return async dispatch => {
         dispatch(updateSalonStart());
 
         try {
             const response = await axios.put("salons/update", {
+                token,
                 salonId,
                 salon
             });
             dispatch(updateSalonSuccess(response.data));
-            dispatch(fetchSalons(owner));
+            dispatch(fetchSalons(token));
             dispatch(resetDataAfterAction());
         } catch (error) {
             dispatch(updateSalonFail(error));
@@ -153,19 +154,20 @@ export const deleteSalonStart = () => {
     };
 };
 
-export const deleteSalon = (owner, salonId) => {
+export const deleteSalon = (token, salonId) => {
     return async dispatch => {
         dispatch(deleteSalonStart());
 
         try {
             const data = {
+                token,
                 salonId
             };
             const response = await axios.delete("salons/delete", {
                 data
             });
             dispatch(deleteSalonSuccess(response.data));
-            dispatch(fetchSalons(owner));
+            dispatch(fetchSalons(token));
             dispatch(resetDataAfterAction());
         } catch (error) {
             dispatch(deleteSalonFail(error));

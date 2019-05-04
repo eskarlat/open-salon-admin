@@ -23,14 +23,14 @@ export const fetchClientsStart = () => {
     };
 };
 
-export const fetchClients = ownerId => {
+export const fetchClients = token => {
     return async dispatch => {
         dispatch(fetchClientsStart());
 
         try {
             const response = await axios.get("clients", {
                 params: {
-                    ownerId
+                    token
                 }
             });
             dispatch(fetchClientsSuccess(response.data));

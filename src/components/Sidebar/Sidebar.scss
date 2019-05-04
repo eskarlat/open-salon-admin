@@ -22,7 +22,7 @@
         margin-top: auto;
         padding: 1rem;
         cursor: pointer;
-        margin-bottom: 1rem;
+        margin-bottom: .5rem;
 
         &--avatar {
             width: 4rem;
@@ -35,5 +35,14 @@
             font-weight: 600;
             color: currentColor;
         }
+    }
+
+    &__logout-btn {
+        border: none;
+        background-color: transparent;
+        color: #fff;
+        font-weight: 600;
+        padding: 1rem;
+        cursor: pointer;
     }
 }

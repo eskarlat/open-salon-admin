@@ -17,6 +17,7 @@ import servicesReducer from "./store/reducers/services";
 import mastersReducer from "./store/reducers/masters";
 import reservationsReducer from "./store/reducers/reservations";
 import clientsReducer from "./store/reducers/clients";
+import authReducer from "./store/reducers/auth";
 
 const redux =
     process.env.NODE_ENV === "development"
@@ -31,7 +32,8 @@ const rootReducer = combineReducers({
     ser: servicesReducer,
     mas: mastersReducer,
     res: reservationsReducer,
-    cl: clientsReducer
+    cl: clientsReducer,
+    auth: authReducer
 });
 
 const store = createStore(

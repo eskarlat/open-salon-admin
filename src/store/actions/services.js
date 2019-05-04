@@ -23,14 +23,14 @@ export const fetchServicesStart = () => {
     };
 };
 
-export const fetchServices = ownerId => {
+export const fetchServices = token => {
     return async dispatch => {
         dispatch(fetchServicesStart());
 
         try {
             const response = await axios.get("services", {
                 params: {
-                    ownerId
+                    token
                 }
             });
             dispatch(fetchServicesSuccess(response.data));
@@ -75,14 +75,19 @@ export const createServiceStart = () => {
     };
 };
 
-export const createService = (ownerId, serviceData) => {
+export const createService = (token, serviceData) => {
     return async dispatch => {
         dispatch(createServiceStart());
 
+        const data = {
+            token,
+            ...serviceData
+        };
+
         try {
-            const response = await axios.post("services/create", serviceData);
+            const response = await axios.post("services/create", data);
             dispatch(createServiceSuccess(response.data));
-            dispatch(fetchServices(ownerId));
+            dispatch(fetchServices(token));
             dispatch(resetDataAfterAction());
         } catch (error) {
             dispatch(createServiceFail(error));
@@ -111,14 +116,19 @@ export const updateServiceStart = () => {
     };
 };
 
-export const updateService = (owner, serviceData) => {
+export const updateService = (token, serviceData) => {
     return async dispatch => {
         dispatch(updateServiceStart());
 
+        const data = {
+            token,
+            ...serviceData
+        };
+
         try {
-            const response = await axios.put("services/update", serviceData);
+            const response = await axios.put("services/update", data);
             dispatch(updateServiceSuccess(response.data));
-            dispatch(fetchServices(owner));
+            dispatch(fetchServices(token));
             dispatch(resetDataAfterAction());
         } catch (error) {
             dispatch(updateServiceFail(error));
@@ -147,19 +157,20 @@ export const deleteServiceStart = () => {
     };
 };
 
-export const deleteService = (owner, serviceId) => {
+export const deleteService = (token, serviceId) => {
     return async dispatch => {
         dispatch(deleteServiceStart());
 
         try {
             const data = {
+                token,
                 serviceId
             };
             const response = await axios.delete("services/delete", {
                 data
             });
             dispatch(deleteServiceSuccess(response.data));
-            dispatch(fetchServices(owner));
+            dispatch(fetchServices(token));
             dispatch(resetDataAfterAction());
         } catch (error) {
             dispatch(deleteServiceFail(error));

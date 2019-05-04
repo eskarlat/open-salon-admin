@@ -24,3 +24,13 @@ export {
 export { fetchReservations } from "./reservations";
 
 export { fetchClients } from "./clients";
+
+export {
+    register,
+    login,
+    forgotPassword,
+    resetPassword,
+    accountActivate,
+    authCheckState,
+    logout
+} from "./auth";

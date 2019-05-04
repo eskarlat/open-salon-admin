@@ -23,14 +23,14 @@ export const fetchLocationsStart = () => {
     };
 };
 
-export const fetchLocations = ownerId => {
+export const fetchLocations = token => {
     return async dispatch => {
         dispatch(fetchLocationsStart());
 
         try {
             const response = await axios.get("locations", {
                 params: {
-                    ownerId
+                    token
                 }
             });
             dispatch(fetchLocationsSuccess(response.data));
@@ -75,14 +75,19 @@ export const createLocationStart = () => {
     };
 };
 
-export const createLocation = (ownerId, locationData) => {
+export const createLocation = (token, locationData) => {
     return async dispatch => {
         dispatch(createLocationStart());
 
+        const data = {
+            token,
+            ...locationData
+        };
+
         try {
-            const response = await axios.post("locations/create", locationData);
+            const response = await axios.post("locations/create", data);
             dispatch(createLocationSuccess(response.data));
-            dispatch(fetchLocations(ownerId));
+            dispatch(fetchLocations(token));
             dispatch(resetDataAfterAction());
         } catch (error) {
             dispatch(createLocationFail(error));
@@ -111,14 +116,19 @@ export const updateLocationStart = () => {
     };
 };
 
-export const updateLocation = (owner, locationData) => {
+export const updateLocation = (token, locationData) => {
     return async dispatch => {
         dispatch(updateLocationStart());
 
+        const data = {
+            token,
+            ...locationData
+        };
+
         try {
-            const response = await axios.put("locations/update", locationData);
+            const response = await axios.put("locations/update", data);
             dispatch(updateLocationSuccess(response.data));
-            dispatch(fetchLocations(owner));
+            dispatch(fetchLocations(token));
             dispatch(resetDataAfterAction());
         } catch (error) {
             dispatch(updateLocationFail(error));
@@ -147,19 +157,20 @@ export const deleteLocationStart = () => {
     };
 };
 
-export const deleteLocation = (owner, locationId) => {
+export const deleteLocation = (token, locationId) => {
     return async dispatch => {
         dispatch(deleteLocationStart());
 
         try {
             const data = {
+                token,
                 locationId
             };
             const response = await axios.delete("locations/delete", {
                 data
             });
             dispatch(deleteLocationSuccess(response.data));
-            dispatch(fetchLocations(owner));
+            dispatch(fetchLocations(token));
             dispatch(resetDataAfterAction());
         } catch (error) {
             dispatch(deleteLocationFail(error));

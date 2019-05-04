@@ -23,14 +23,14 @@ export const fetchMastersStart = () => {
     };
 };
 
-export const fetchMasters = ownerId => {
+export const fetchMasters = token => {
     return async dispatch => {
         dispatch(fetchMastersStart());
 
         try {
             const response = await axios.get("masters", {
                 params: {
-                    ownerId
+                    token
                 }
             });
             dispatch(fetchMastersSuccess(response.data));
@@ -75,14 +75,19 @@ export const createMasterStart = () => {
     };
 };
 
-export const createMaster = (ownerId, masterData) => {
+export const createMaster = (token, masterData) => {
     return async dispatch => {
         dispatch(createMasterStart());
 
+        const data = {
+            token,
+            ...masterData
+        };
+
         try {
-            const response = await axios.post("masters/create", masterData);
+            const response = await axios.post("masters/create", data);
             dispatch(createMasterSuccess(response.data));
-            dispatch(fetchMasters(ownerId));
+            dispatch(fetchMasters(token));
             dispatch(resetDataAfterAction());
         } catch (error) {
             dispatch(createMasterFail(error));
@@ -111,14 +116,19 @@ export const updateMasterStart = () => {
     };
 };
 
-export const updateMaster = (owner, masterData) => {
+export const updateMaster = (token, masterData) => {
     return async dispatch => {
         dispatch(updateMasterStart());
 
+        const data = {
+            token,
+            ...masterData
+        };
+
         try {
-            const response = await axios.put("masters/update", masterData);
+            const response = await axios.put("masters/update", data);
             dispatch(updateMasterSuccess(response.data));
-            dispatch(fetchMasters(owner));
+            dispatch(fetchMasters(token));
             dispatch(resetDataAfterAction());
         } catch (error) {
             dispatch(updateMasterFail(error));
@@ -147,19 +157,20 @@ export const deleteMasterStart = () => {
     };
 };
 
-export const deleteMaster = (owner, masterId) => {
+export const deleteMaster = (token, masterId) => {
     return async dispatch => {
         dispatch(deleteMasterStart());
 
         try {
             const data = {
+                token,
                 masterId
             };
             const response = await axios.delete("masters/delete", {
                 data
             });
             dispatch(deleteMasterSuccess(response.data));
-            dispatch(fetchMasters(owner));
+            dispatch(fetchMasters(token));
             dispatch(resetDataAfterAction());
         } catch (error) {
             dispatch(deleteMasterFail(error));

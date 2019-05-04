@@ -8,7 +8,7 @@ import ContentSidebar from "../../components/ContentSidebar/ContentSidebar";
 import ContentMain from "../../components/ContentMain/ContentMain";
 import Panel from "../../components/ContentMain/Panel/Panel";
 import Form from "../../components/Form/Form";
-import Modal from "../../components/UI/Modal/Modal";
+import DeleteModal from "../../components/UI/DeleteModal/DeleteModal";
 
 //Util
 import { updateObject, validation, updateForm } from "../../shared/utility";
@@ -97,9 +97,9 @@ class Services extends Component {
     };
 
     componentDidMount() {
-        const owner = "5cbefd480a9d662b3c917583";
-        this.props.fetchServices(owner);
-        this.props.fetchSalons(owner);
+        const token = this.props.token;
+        this.props.fetchServices(token);
+        this.props.fetchSalons(token);
     }
 
     componentDidUpdate() {
@@ -234,9 +234,10 @@ class Services extends Component {
     };
 
     onModalConfirm = () => {
-        const owner = "5cbefd480a9d662b3c917583";
+        const token = this.props.token;
         const serviceId = this.state.selectedItem;
-        this.props.deleteService(owner, serviceId);
+        this.props.deleteService(token, serviceId);
+        this.onModalClose();
     };
 
     onModalClose = () => {
@@ -244,7 +245,7 @@ class Services extends Component {
     };
 
     onSubmitHandler = () => {
-        const owner = "5cbefd480a9d662b3c917583";
+        const token = this.props.token;
         const formData = {};
 
         for (let formId in this.state.form) {
@@ -253,13 +254,13 @@ class Services extends Component {
 
         switch (this.state.action) {
             case SERVICES_ACTIONS.create:
-                this.props.createService(owner, {
+                this.props.createService(token, {
                     service: formData
                 });
                 break;
             case SERVICES_ACTIONS.edit:
                 const serviceId = this.state.selectedItem;
-                this.props.updateService(owner, {
+                this.props.updateService(token, {
                     serviceId: serviceId,
                     service: formData
                 });
@@ -329,7 +330,7 @@ class Services extends Component {
                     </Panel>
                 </ContentMain>
                 {this.state.modalShown && (
-                    <Modal
+                    <DeleteModal
                         clicked={this.onModalConfirm}
                         closed={this.onModalClose}
                     />
@@ -343,20 +344,21 @@ const mapStateToProps = state => {
     return {
         isSuccess: state.ser.isSuccess,
         salons: state.sal.salons,
-        services: state.ser.services
+        services: state.ser.services,
+        token: state.auth.token
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchSalons: ownerId => dispatch(actions.fetchSalons(ownerId)),
-        fetchServices: ownerId => dispatch(actions.fetchServices(ownerId)),
-        createService: (ownerId, serviceData) =>
-            dispatch(actions.createService(ownerId, serviceData)),
-        updateService: (ownerId, serviceData) =>
-            dispatch(actions.updateService(ownerId, serviceData)),
-        deleteService: (ownerId, serviceId) =>
-            dispatch(actions.deleteService(ownerId, serviceId))
+        fetchSalons: token => dispatch(actions.fetchSalons(token)),
+        fetchServices: token => dispatch(actions.fetchServices(token)),
+        createService: (token, serviceData) =>
+            dispatch(actions.createService(token, serviceData)),
+        updateService: (token, serviceData) =>
+            dispatch(actions.updateService(token, serviceData)),
+        deleteService: (token, serviceId) =>
+            dispatch(actions.deleteService(token, serviceId))
     };
 };
 

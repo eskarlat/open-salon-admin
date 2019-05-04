@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 //style
 import "./Sidebar.scss";
@@ -16,7 +17,14 @@ import ReservationIcon from "../../assets/SVG/open-book.svg";
 import NoUser from "../../assets/img/no-user.jpg";
 import Logo from "../../assets/img/logo-white.png";
 
+//Redux actions
+import * as actions from "../../store/actions/index";
+
 class Sidebar extends Component {
+    onLogoutHandler = () => {
+        this.props.onLogout();
+    };
+
     render() {
         const sidebarItems = [
             { id: 1, title: "Salons", url: "/salons", icon: SalonsIcon },
@@ -45,11 +53,34 @@ class Sidebar extends Component {
                         alt="Profile"
                         className="os-sidebar__profile--avatar"
                     />
-                    <span className="os-sidebar__profile--name">Evgeny</span>
+                    <span className="os-sidebar__profile--name">
+                        {this.props.user.name}
+                    </span>
                 </div>
+                <button
+                    className="os-sidebar__logout-btn"
+                    onClick={this.onLogoutHandler}
+                >
+                    Logout
+                </button>
             </div>
         );
     }
 }
 
-export default Sidebar;
+const mapStateToProps = state => {
+    return {
+        user: state.auth.user
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onLogout: () => dispatch(actions.logout())
+    };
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Sidebar);

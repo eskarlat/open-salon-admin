@@ -15,6 +15,7 @@ import { updateObject, validation, updateForm } from "../../shared/utility";
 //Redux actions
 import * as actions from "../../store/actions/index";
 import Alert from "../../components/ContentMain/Alert/Alert";
+import DeleteModal from "../../components/UI/DeleteModal/DeleteModal";
 
 const SALONS_ACTIONS = {
     index: "INDEX",
@@ -80,8 +81,7 @@ class Salons extends Component {
     };
 
     componentDidMount() {
-        const owner = "5cbefd480a9d662b3c917583";
-        this.props.fetchSalons(owner);
+        this.props.fetchSalons(this.props.token);
     }
 
     componentDidUpdate() {
@@ -199,9 +199,10 @@ class Salons extends Component {
     };
 
     onModalConfirm = () => {
-        const owner = "5cbefd480a9d662b3c917583";
+        const token = this.props.token;
         const salonId = this.state.selectedItem;
-        this.props.deleteSalon(owner, salonId);
+        this.props.deleteSalon(token, salonId);
+        this.onModalClose();
     };
 
     onModalClose = () => {
@@ -209,7 +210,7 @@ class Salons extends Component {
     };
 
     onSubmitHandler = () => {
-        const owner = "5cbefd480a9d662b3c917583";
+        const token = this.props.token;
         const formData = {};
 
         for (let formId in this.state.form) {
@@ -218,11 +219,11 @@ class Salons extends Component {
 
         switch (this.state.action) {
             case SALONS_ACTIONS.create:
-                this.props.createSalon(owner, formData);
+                this.props.createSalon(token, formData);
                 break;
             case SALONS_ACTIONS.edit:
                 const salonId = this.state.selectedItem;
-                this.props.updateSalon(owner, salonId, formData);
+                this.props.updateSalon(token, salonId, formData);
                 break;
             default:
                 break;
@@ -302,19 +303,10 @@ class Salons extends Component {
                     </Panel>
                 </ContentMain>
                 {this.state.modalShown && (
-                    <Modal title="Delete" closed={this.onModalClose}>
-                        <span className="widget__modal--text">
-                            Are you sure?
-                        </span>
-                        <div className="widget__modal--footer">
-                            <button
-                                className="btn btn-primary"
-                                onClick={this.onModalConfirm}
-                            >
-                                Yes
-                            </button>
-                        </div>
-                    </Modal>
+                    <DeleteModal
+                        clicked={this.onModalConfirm}
+                        closed={this.onModalClose}
+                    />
                 )}
 
                 {this.state.widgetModalShown && (
@@ -353,19 +345,20 @@ class Salons extends Component {
 const mapStateToProps = state => {
     return {
         isSuccess: state.sal.isSuccess,
-        salons: state.sal.salons
+        salons: state.sal.salons,
+        token: state.auth.token
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchSalons: ownerId => dispatch(actions.fetchSalons(ownerId)),
-        createSalon: (owner, salon) =>
-            dispatch(actions.createSalon(owner, salon)),
-        updateSalon: (owner, salonId, salon) =>
-            dispatch(actions.updateSalon(owner, salonId, salon)),
-        deleteSalon: (owner, salonId) =>
-            dispatch(actions.deleteSalon(owner, salonId))
+        fetchSalons: token => dispatch(actions.fetchSalons(token)),
+        createSalon: (token, salon) =>
+            dispatch(actions.createSalon(token, salon)),
+        updateSalon: (token, salonId, salon) =>
+            dispatch(actions.updateSalon(token, salonId, salon)),
+        deleteSalon: (token, salonId) =>
+            dispatch(actions.deleteSalon(token, salonId))
     };
 };
 

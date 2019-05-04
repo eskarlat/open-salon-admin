@@ -8,7 +8,7 @@ import ContentSidebar from "../../components/ContentSidebar/ContentSidebar";
 import ContentMain from "../../components/ContentMain/ContentMain";
 import Panel from "../../components/ContentMain/Panel/Panel";
 import Form from "../../components/Form/Form";
-import Modal from "../../components/UI/Modal/Modal";
+import DeleteModal from "../../components/UI/DeleteModal/DeleteModal";
 
 //Util
 import { updateObject, validation, updateForm } from "../../shared/utility";
@@ -99,7 +99,7 @@ class Location extends Component {
                 validation: validation({
                     required: true
                 }),
-                valid: false,
+                valid: true,
                 touched: false
             }
         },
@@ -111,9 +111,9 @@ class Location extends Component {
     };
 
     componentDidMount() {
-        const owner = "5cbefd480a9d662b3c917583";
-        this.props.fetchLocations(owner);
-        this.props.fetchSalons(owner);
+        const token = this.props.token;
+        this.props.fetchLocations(token);
+        this.props.fetchSalons(token);
     }
 
     componentDidUpdate() {
@@ -248,9 +248,10 @@ class Location extends Component {
     };
 
     onModalConfirm = () => {
-        const owner = "5cbefd480a9d662b3c917583";
+        const token = this.props.token;
         const locationId = this.state.selectedItem;
-        this.props.deleteLocation(owner, locationId);
+        this.props.deleteLocation(token, locationId);
+        this.onModalClose();
     };
 
     onModalClose = () => {
@@ -258,7 +259,7 @@ class Location extends Component {
     };
 
     onSubmitHandler = () => {
-        const owner = "5cbefd480a9d662b3c917583";
+        const token = this.props.token;
         const formData = {};
 
         for (let formId in this.state.form) {
@@ -267,13 +268,13 @@ class Location extends Component {
 
         switch (this.state.action) {
             case LOCATIONS_ACTIONS.create:
-                this.props.createLocation(owner, {
+                this.props.createLocation(token, {
                     location: formData
                 });
                 break;
             case LOCATIONS_ACTIONS.edit:
                 const locationId = this.state.selectedItem;
-                this.props.updateLocation(owner, {
+                this.props.updateLocation(token, {
                     locationId,
                     location: formData
                 });
@@ -343,7 +344,7 @@ class Location extends Component {
                     </Panel>
                 </ContentMain>
                 {this.state.modalShown && (
-                    <Modal
+                    <DeleteModal
                         clicked={this.onModalConfirm}
                         closed={this.onModalClose}
                     />
@@ -357,20 +358,21 @@ const mapStateToProps = state => {
     return {
         isSuccess: state.loc.isSuccess,
         salons: state.sal.salons,
-        locations: state.loc.locations
+        locations: state.loc.locations,
+        token: state.auth.token
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchSalons: ownerId => dispatch(actions.fetchSalons(ownerId)),
-        fetchLocations: ownerId => dispatch(actions.fetchLocations(ownerId)),
-        createLocation: (ownerId, locationData) =>
-            dispatch(actions.createLocation(ownerId, locationData)),
-        updateLocation: (ownerId, locationData) =>
-            dispatch(actions.updateLocation(ownerId, locationData)),
-        deleteLocation: (ownerId, locationId) =>
-            dispatch(actions.deleteLocation(ownerId, locationId))
+        fetchSalons: token => dispatch(actions.fetchSalons(token)),
+        fetchLocations: token => dispatch(actions.fetchLocations(token)),
+        createLocation: (token, locationData) =>
+            dispatch(actions.createLocation(token, locationData)),
+        updateLocation: (token, locationData) =>
+            dispatch(actions.updateLocation(token, locationData)),
+        deleteLocation: (token, locationId) =>
+            dispatch(actions.deleteLocation(token, locationId))
     };
 };
 

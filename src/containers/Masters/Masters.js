@@ -8,7 +8,7 @@ import ContentSidebar from "../../components/ContentSidebar/ContentSidebar";
 import ContentMain from "../../components/ContentMain/ContentMain";
 import Panel from "../../components/ContentMain/Panel/Panel";
 import Form from "../../components/Form/Form";
-import Modal from "../../components/UI/Modal/Modal";
+import DeleteModal from "../../components/UI/DeleteModal/DeleteModal";
 
 //Util
 import { updateObject, validation, updateForm } from "../../shared/utility";
@@ -127,10 +127,10 @@ class Masters extends Component {
     };
 
     componentDidMount() {
-        const owner = "5cbefd480a9d662b3c917583";
-        this.props.fetchMasters(owner);
-        this.props.fetchLocations(owner);
-        this.props.fetchSalons(owner);
+        const token = this.props.token;
+        this.props.fetchMasters(token);
+        this.props.fetchLocations(token);
+        this.props.fetchSalons(token);
     }
 
     componentDidUpdate() {
@@ -279,9 +279,10 @@ class Masters extends Component {
     };
 
     onModalConfirm = () => {
-        const owner = "5cbefd480a9d662b3c917583";
+        const token = this.props.token;
         const masterId = this.state.selectedItem;
-        this.props.deleteMaster(owner, masterId);
+        this.props.deleteMaster(token, masterId);
+        this.onModalClose();
     };
 
     onModalClose = () => {
@@ -289,7 +290,7 @@ class Masters extends Component {
     };
 
     onSubmitHandler = () => {
-        const owner = "5cbefd480a9d662b3c917583";
+        const token = this.props.token;
         const formData = {};
 
         for (let formId in this.state.form) {
@@ -298,13 +299,13 @@ class Masters extends Component {
 
         switch (this.state.action) {
             case SERVICES_ACTIONS.create:
-                this.props.createMaster(owner, {
+                this.props.createMaster(token, {
                     master: formData
                 });
                 break;
             case SERVICES_ACTIONS.edit:
                 const masterId = this.state.selectedItem;
-                this.props.updateMaster(owner, {
+                this.props.updateMaster(token, {
                     masterId: masterId,
                     master: formData
                 });
@@ -376,7 +377,7 @@ class Masters extends Component {
                     </Panel>
                 </ContentMain>
                 {this.state.modalShown && (
-                    <Modal
+                    <DeleteModal
                         clicked={this.onModalConfirm}
                         closed={this.onModalClose}
                     />
@@ -391,21 +392,22 @@ const mapStateToProps = state => {
         isSuccess: state.mas.isSuccess,
         salons: state.sal.salons,
         locations: state.loc.locations,
-        masters: state.mas.masters
+        masters: state.mas.masters,
+        token: state.auth.token
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchSalons: ownerId => dispatch(actions.fetchSalons(ownerId)),
-        fetchLocations: ownerId => dispatch(actions.fetchLocations(ownerId)),
-        fetchMasters: ownerId => dispatch(actions.fetchMasters(ownerId)),
-        createMaster: (ownerId, masterData) =>
-            dispatch(actions.createMaster(ownerId, masterData)),
-        updateMaster: (ownerId, masterData) =>
-            dispatch(actions.updateMaster(ownerId, masterData)),
-        deleteMaster: (ownerId, masterId) =>
-            dispatch(actions.deleteMaster(ownerId, masterId))
+        fetchSalons: token => dispatch(actions.fetchSalons(token)),
+        fetchLocations: token => dispatch(actions.fetchLocations(token)),
+        fetchMasters: token => dispatch(actions.fetchMasters(token)),
+        createMaster: (token, masterData) =>
+            dispatch(actions.createMaster(token, masterData)),
+        updateMaster: (token, masterData) =>
+            dispatch(actions.updateMaster(token, masterData)),
+        deleteMaster: (token, masterId) =>
+            dispatch(actions.deleteMaster(token, masterId))
     };
 };
 

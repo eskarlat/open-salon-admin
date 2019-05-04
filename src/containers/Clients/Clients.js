@@ -18,8 +18,8 @@ class Clients extends Component {
     };
 
     componentDidMount() {
-        const owner = "5cbefd480a9d662b3c917583";
-        this.props.fetchClients(owner);
+        const token = this.props.token;
+        this.props.fetchClients(token);
     }
 
     filterHandler = filterString => {
@@ -73,13 +73,14 @@ class Clients extends Component {
 
 const mapStateToProps = state => {
     return {
-        clients: state.cl.clients
+        clients: state.cl.clients,
+        token: state.auth.token
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchClients: ownerId => dispatch(actions.fetchClients(ownerId))
+        fetchClients: token => dispatch(actions.fetchClients(token))
     };
 };
 

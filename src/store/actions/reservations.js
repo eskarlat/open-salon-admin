@@ -23,14 +23,14 @@ export const fetchReservationsStart = () => {
     };
 };
 
-export const fetchReservations = (ownerId, masterId, date) => {
+export const fetchReservations = (token, masterId, date) => {
     return async dispatch => {
         dispatch(fetchReservationsStart());
 
         try {
             const response = await axios.get("reservations", {
                 params: {
-                    ownerId,
+                    token,
                     masterId,
                     date
                 }

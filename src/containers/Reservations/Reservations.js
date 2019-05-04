@@ -21,8 +21,7 @@ class Reservations extends Component {
     };
 
     componentDidMount() {
-        const owner = "5cbefd480a9d662b3c917583";
-        this.props.fetchMasters(owner);
+        this.props.fetchMasters(this.props.token);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -34,9 +33,8 @@ class Reservations extends Component {
     }
 
     onUpdateReservationTable = (masterId = this.state.selectedMaster) => {
-        const owner = "5cbefd480a9d662b3c917583";
         this.props.fetchReservations(
-            owner,
+            this.props.token,
             masterId,
             this.state.currentDate.format("YYYY-MM-DD")
         );
@@ -119,15 +117,16 @@ class Reservations extends Component {
 const mapStateToProps = state => {
     return {
         masters: state.mas.masters,
-        reservations: state.res.reservations
+        reservations: state.res.reservations,
+        token: state.auth.token
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchMasters: ownerId => dispatch(actions.fetchMasters(ownerId)),
-        fetchReservations: (ownerId, masterId, date) =>
-            dispatch(actions.fetchReservations(ownerId, masterId, date))
+        fetchMasters: token => dispatch(actions.fetchMasters(token)),
+        fetchReservations: (token, masterId, date) =>
+            dispatch(actions.fetchReservations(token, masterId, date))
     };
 };
 
