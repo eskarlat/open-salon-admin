@@ -6,7 +6,7 @@
     width: 100%;
 
     &__info-box {
-        flex: 0 0 40%;
+        flex: 1;
         display: flex;
         flex-direction: column;
         font-size: 1.2rem;
@@ -18,7 +18,7 @@
     &__service-list {
         &--item {
             font-size: 1.5rem;
-            font-weight: 600;
+            list-style: none;
         }
     }
 
@@ -28,6 +28,7 @@
         padding: 1rem;
         border-radius: 7px;
         height: 9rem;
+        margin-right: 1.5rem;
         &--image {
             width: 6rem;
             height: 6rem;

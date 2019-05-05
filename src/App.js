@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import "./App.scss";
 
 import { Switch, Route, Redirect } from "react-router-dom";
 
 //Components
-import Basic from "./layouts/Basic/Basic";
-import Front from "./layouts/Front/Front";
+import BasicLayout from "./layouts/Basic/Basic";
+import AuthLayout from "./layouts/Auth/Auth";
 import ContentLayout from "./layouts/Content/Content";
 
 //Containers
@@ -31,6 +32,13 @@ class App extends Component {
     componentWillMount() {
         this.props.authCheckState();
     }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.isAuth && !nextProps.isAuth) {
+            this.props.history.replace("/login");
+        }
+    }
+
     render() {
         let routers = (
             <React.Fragment>
@@ -102,12 +110,12 @@ class App extends Component {
         return (
             <React.Fragment>
                 {this.props.isAuth && (
-                    <Basic>
+                    <BasicLayout>
                         <ContentLayout>{routers}</ContentLayout>
-                    </Basic>
+                    </BasicLayout>
                 )}
                 {!this.props.isAuth && (
-                    <Front>
+                    <AuthLayout>
                         <Switch>
                             <Route
                                 path="/login"
@@ -135,7 +143,7 @@ class App extends Component {
                                 component={AccountActivateContainer}
                             />
                         </Switch>
-                    </Front>
+                    </AuthLayout>
                 )}
             </React.Fragment>
         );
@@ -157,4 +165,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(App);
+)(withRouter(App));

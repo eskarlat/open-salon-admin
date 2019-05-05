@@ -1,4 +1,8 @@
 .os-alert {
+    position: fixed;
+    bottom: 0;
+    right: 2rem;
+    width: 30rem;
     display: flex;
     background-color: var(--color-green);
     color: #fff;
@@ -13,5 +17,10 @@
 
     &__close {
         cursor: pointer;
+    }
+
+    &__danger {
+        background-color: orangered;
+        color: #fff;
     }
 }

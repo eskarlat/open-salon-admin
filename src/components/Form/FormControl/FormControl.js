@@ -70,7 +70,7 @@ const FormControl = props => {
                     <select
                         id={props.elementConfig.name}
                         {...props.elementConfig}
-                        value={props.value._id}
+                        value={props.value._id || props.value}
                         onChange={props.changed}
                         className={itemClass}
                     >

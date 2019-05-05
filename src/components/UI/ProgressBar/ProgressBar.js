@@ -19,7 +19,8 @@ class ProgressBar extends Component {
             nextProps.loadingServers ||
             nextProps.loadingMasters ||
             nextProps.loadingReservations ||
-            nextProps.loadingClients;
+            nextProps.loadingClients ||
+            nextProps.loadingAuth;
 
         const addClass = isLoading
             ? "widget__progress-bar--start"
@@ -49,7 +50,8 @@ const mapStateToProps = state => {
         loadingServers: state.ser.loading,
         loadingMasters: state.mas.loading,
         loadingReservations: state.res.loading,
-        loadingClients: state.cl.loading
+        loadingClients: state.cl.loading,
+        loadingAuth: state.auth.loading
     };
 };
 

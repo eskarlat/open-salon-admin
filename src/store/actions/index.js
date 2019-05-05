@@ -32,5 +32,6 @@ export {
     resetPassword,
     accountActivate,
     authCheckState,
-    logout
+    logout,
+    resetError
 } from "./auth";

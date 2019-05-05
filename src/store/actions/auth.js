@@ -106,6 +106,12 @@ export const login = formData => {
     };
 };
 
+export const resetError = () => {
+    return {
+        type: actionTypes.RESET_ERROR
+    };
+};
+
 //fetch user info
 
 export const fetchUserInfoSuccess = user => {

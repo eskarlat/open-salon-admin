@@ -1,9 +1,20 @@
 .os-content-filter {
+    display: flex;
+    margin: 1.5rem 0;
+    border: 1px solid var(--color-grey-light-3);
+    background-color: #fff;
+    border-radius: 7px;
+    
+
     &__input {
+        border: none;
+        background-color: transparent;
         padding: 2rem;
-        margin: 1.5rem 0;
         width: 100%;
-        border: 1px solid var(--color-grey-light-3);
         outline: none;
+    }
+
+    &__icon {
+        padding-right: 2rem;
     }
 }

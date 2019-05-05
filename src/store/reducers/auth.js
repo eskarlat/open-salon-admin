@@ -70,6 +70,12 @@ export const logout = (state, action) => {
     });
 };
 
+export const resetError = (state, action) => {
+    return updateObject(state, {
+        error: null
+    });
+};
+
 //Account Activate
 
 const accountActivationStart = (state, action) => {
@@ -162,6 +168,8 @@ const reducer = (state = initialState, action) => {
             return resetRedirect(state, action);
         case actionTypes.AUTH_LOGOUT:
             return logout(state, action);
+        case actionTypes.RESET_ERROR:
+            return resetError(state, action);
         //Register
         case actionTypes.REGISTER_START:
             return registerStart(state, action);

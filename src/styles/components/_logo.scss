@@ -10,9 +10,13 @@
     align-items: center;
 
     &--light {
-        background-color: var(--color-grey-light-4);
+        background-color: #fff;
     }
 
+    &--light &__part {
+        background-color: var(--color-primary);
+    }
+    
     &__part {
 
         background-color: #fff;

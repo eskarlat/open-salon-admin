@@ -26,7 +26,8 @@ class Reservations extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.masters && this.props.reservations.length === 0) {
-            const masterId = nextProps.masters[0]._id;
+            const masterId =
+                nextProps.masters.length > 0 ? nextProps.masters[0]._id : null;
             this.onUpdateReservationTable(masterId);
             this.setState({ selectedMaster: masterId });
         }

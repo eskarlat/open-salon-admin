@@ -80,6 +80,7 @@ export const FETCH_CLIENTS_FAIL = "FETCH_CLIENTS_FAIL";
 
 //AUTH
 export const RESET_REDIRECT = "RESET_REDIRECT";
+export const RESET_ERROR = "RESET_ERROR";
 export const AUTH_LOGOUT = "AUTH_LOGOUT";
 
 //Register

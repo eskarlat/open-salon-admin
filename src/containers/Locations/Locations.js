@@ -15,7 +15,7 @@ import { updateObject, validation, updateForm } from "../../shared/utility";
 
 //Redux actions
 import * as actions from "../../store/actions/index";
-import Alert from "../../components/ContentMain/Alert/Alert";
+import Alert from "../../components/UI/Alert/Alert";
 
 const LOCATIONS_ACTIONS = {
     index: "INDEX",

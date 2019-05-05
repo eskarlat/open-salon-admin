@@ -1,7 +1,15 @@
+.os-auth-layout {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .section-signin {
     width: 30vw;
     height: 70vh;
-    margin: 4rem auto;
 }
 
 .footer-signin {

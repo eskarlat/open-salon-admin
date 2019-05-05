@@ -14,7 +14,7 @@ import { updateObject, validation, updateForm } from "../../shared/utility";
 
 //Redux actions
 import * as actions from "../../store/actions/index";
-import Alert from "../../components/ContentMain/Alert/Alert";
+import Alert from "../../components/UI/Alert/Alert";
 import DeleteModal from "../../components/UI/DeleteModal/DeleteModal";
 
 const SALONS_ACTIONS = {
@@ -68,6 +68,26 @@ class Salons extends Component {
                 label: "Description",
                 value: "",
                 validation: validation({}),
+                valid: false,
+                touched: false
+            },
+            currency: {
+                elementType: "select",
+                elementConfig: {
+                    name: "currency"
+                },
+                label: "Currency",
+                value: "",
+                validation: validation({
+                    required: true
+                }),
+                options: [
+                    { value: "BGN", title: "BGN" },
+                    { value: "RUB", title: "RUB" },
+                    { value: "UAH", title: "UAH" },
+                    { value: "USD", title: "USD" },
+                    { value: "EUR", title: "EUR" }
+                ],
                 valid: false,
                 touched: false
             }

@@ -7,12 +7,17 @@ const ContentSidebarItem = props => {
     const clikced = props.hideBtn
         ? event => props.clicked(event, props.id)
         : null;
+
+    const style = {
+        "background-image": `url(${props.image})`
+    };
+
     return (
         <figure className="os-content-sidebar__item" onClick={clikced}>
             {props.image && (
-                <img
+                <div
                     className="os-content-sidebar__item--image"
-                    src={props.image}
+                    style={style}
                     alt={props.title}
                 />
             )}

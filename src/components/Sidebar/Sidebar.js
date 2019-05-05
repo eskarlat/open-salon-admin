@@ -41,7 +41,12 @@ class Sidebar extends Component {
         ];
         return (
             <div className="os-sidebar">
-                <img src={Logo} alt="Logo" className="os-sidebar__logo" />
+                <div className="os-sidebar__logo">
+                    <div className="logo logo--light">
+                        <div className="logo__part logo__part-1" />
+                        <div className="logo__part logo__part-2" />
+                    </div>
+                </div>
                 <nav className="os-sidebar__navigation">
                     {sidebarItems.map(item => (
                         <SidebarItem key={item.id} item={item} />
@@ -49,7 +54,7 @@ class Sidebar extends Component {
                 </nav>
                 <div className="os-sidebar__profile">
                     <img
-                        src={NoUser}
+                        src={this.props.user.avatar || NoUser}
                         alt="Profile"
                         className="os-sidebar__profile--avatar"
                     />

@@ -21,21 +21,33 @@ const ReservationItem = props => {
                     <span className="os-reservation-item__client--phone">
                         {props.item.client.phone}
                     </span>
-                    <span className="os-reservation-item__info-box--item">
-                        Total amount:{" "}
-                        {props.item.services.reduce(
-                            (sum, item) => sum + item.cost,
-                            0
-                        )}{" "}
-                        BGN
-                    </span>
                 </figcaption>
             </figure>
             <div className="os-reservation-item__info-box">
                 <span className="os-reservation-item__info-box--item">
-                    {props.item.comment}
+                    Comment: {props.item.comment}
                 </span>
                 <span className="os-reservation-item__info-box--item">
+                    Booked services:
+                    <ul className="os-reservation-item__service-list">
+                        {props.item.services.map(service => (
+                            <li
+                                key={service._id}
+                                className="os-reservation-item__service-list--item"
+                            >
+                                {service.title}
+                            </li>
+                        ))}
+                    </ul>
+                </span>
+                <span className="os-reservation-item__info-box--item">
+                    Total amount:{" "}
+                    {props.item.services.reduce(
+                        (sum, item) => sum + item.cost,
+                        0
+                    )}{" "}
+                </span>
+                {/* <span className="os-reservation-item__info-box--item">
                     {props.item.salon.title}
                 </span>
                 <span className="os-reservation-item__info-box--item">
@@ -43,24 +55,14 @@ const ReservationItem = props => {
                 </span>
                 <span className="os-reservation-item__info-box--item">
                     {props.item.master.firstName}
+                </span> */}
+                <span className="os-reservation-item__info-box--item">
+                    Start: {moment(props.item.start).format("LTS")}
                 </span>
                 <span className="os-reservation-item__info-box--item">
-                    {moment(props.item.start).format("LTS")}
-                </span>
-                <span className="os-reservation-item__info-box--item">
-                    {moment(props.item.end).format("LTS")}
+                    Finish: {moment(props.item.end).format("LTS")}
                 </span>
             </div>
-            <ul className="os-reservation-item__service-list">
-                {props.item.services.map(service => (
-                    <li
-                        key={service._id}
-                        className="os-reservation-item__service-list--item"
-                    >
-                        {service.title}
-                    </li>
-                ))}
-            </ul>
         </div>
     );
 };
