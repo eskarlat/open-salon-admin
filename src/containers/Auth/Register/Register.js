@@ -11,6 +11,9 @@ import { updateObject, validation, updateForm } from "../../../shared/utility";
 //Redux actions
 import * as actions from "../../../store/actions/index";
 
+//Layout
+import AuthLayout from "../../../layouts/Auth/Auth";
+
 class Register extends Component {
     state = {
         form: {
@@ -66,6 +69,24 @@ class Register extends Component {
         formIsValid: false
     };
 
+    componentDidMount() {
+        const queryParams = {};
+        const query = new URLSearchParams(this.props.location.search);
+        for (let param of query.entries()) {
+            queryParams[param[0]] = param[1];
+        }
+
+        const updateFormElement = updateObject(this.state.form.email, {
+            value: queryParams.email
+        });
+
+        const updatedForm = updateObject(this.state.form, {
+            email: updateFormElement
+        });
+
+        this.setState({ form: updatedForm });
+    }
+
     inputChangedHandler = (event, inputId) => {
         const { updatedForm, formIsValid } = updateForm({
             form: this.state.form,
@@ -92,7 +113,7 @@ class Register extends Component {
 
     render() {
         return (
-            <React.Fragment>
+            <AuthLayout>
                 {!this.props.registerSuccess && (
                     <React.Fragment>
                         <Form
@@ -109,7 +130,7 @@ class Register extends Component {
                         <span className="os-register-exist-text">
                             Already have an account?
                             <button
-                                class="btn btn--link"
+                                class="os-btn os-btn--link"
                                 onClick={this.onLoginPage}
                             >
                                 Login here
@@ -128,7 +149,7 @@ class Register extends Component {
                         </div>
                     </div>
                 )}
-            </React.Fragment>
+            </AuthLayout>
         );
     }
 }

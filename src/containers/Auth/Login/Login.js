@@ -12,6 +12,9 @@ import * as actions from "../../../store/actions/index";
 //Util
 import { updateObject, validation, updateForm } from "../../../shared/utility";
 
+//Layout
+import AuthLayout from "../../../layouts/Auth/Auth";
+
 class Login extends Component {
     state = {
         form: {
@@ -90,25 +93,28 @@ class Login extends Component {
 
     render() {
         return (
-            <React.Fragment>
+            <AuthLayout>
                 <Form
                     form={this.state.form}
                     onChange={this.inputChangedHandler}
                 />
                 <button
-                    class="btn btn--primary"
+                    class="os-btn os-btn--primary"
                     onClick={this.onSubmitHandler}
                     disabled={!this.state.formIsValid}
                 >
                     Login
                 </button>
-                <button class="btn btn--link" onClick={this.onForgotPage}>
+                <button class="os-btn os-btn--link" onClick={this.onForgotPage}>
                     Forgot your password?
                 </button>
-                <button class="btn btn--link" onClick={this.onRegisterPage}>
+                <button
+                    class="os-btn os-btn--link"
+                    onClick={this.onRegisterPage}
+                >
                     Registration
                 </button>
-            </React.Fragment>
+            </AuthLayout>
         );
     }
 }

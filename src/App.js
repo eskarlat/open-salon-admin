@@ -24,6 +24,8 @@ import RegisterContainer from "./containers/Auth/Register/Register";
 import ForgotContainer from "./containers/Auth/Forgot/Forgot";
 import ResetPasswordContainer from "./containers/Auth/ResetPassword/ResetPassword";
 import AccountActivateContainer from "./containers/Auth/AccountActivate/AccountActivate";
+import HomeIndexContainer from "./containers/Home/Index/Index";
+import HomeRegisterContainer from "./containers/Home/Register/Register";
 
 //Redux actions
 import * as actions from "./store/actions/index";
@@ -115,35 +117,35 @@ class App extends Component {
                     </BasicLayout>
                 )}
                 {!this.props.isAuth && (
-                    <AuthLayout>
-                        <Switch>
-                            <Route
-                                path="/login"
-                                exact
-                                component={LoginContainer}
-                            />
-                            <Route
-                                path="/register"
-                                exact
-                                component={RegisterContainer}
-                            />
-                            <Route
-                                path="/forgot"
-                                exact
-                                component={ForgotContainer}
-                            />
-                            <Route
-                                path="/reset/:remember_token"
-                                exact
-                                component={ResetPasswordContainer}
-                            />
-                            <Route
-                                path="/activate/:id"
-                                exact
-                                component={AccountActivateContainer}
-                            />
-                        </Switch>
-                    </AuthLayout>
+                    <Switch>
+                        <Route path="/" exact component={HomeIndexContainer} />
+                        <Route
+                            path="/try"
+                            exact
+                            component={HomeRegisterContainer}
+                        />
+                        <Route path="/login" exact component={LoginContainer} />
+                        <Route
+                            path="/register"
+                            exact
+                            component={RegisterContainer}
+                        />
+                        <Route
+                            path="/forgot"
+                            exact
+                            component={ForgotContainer}
+                        />
+                        <Route
+                            path="/reset/:remember_token"
+                            exact
+                            component={ResetPasswordContainer}
+                        />
+                        <Route
+                            path="/activate/:id"
+                            exact
+                            component={AccountActivateContainer}
+                        />
+                    </Switch>
                 )}
             </React.Fragment>
         );

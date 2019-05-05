@@ -1,0 +1,237 @@
+.section-presentation {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-grey-dark-1);
+    
+    &__picture {
+        border-radius: 7px;
+        box-shadow: var(--shadow-light);
+    }
+}
+
+.section-features {
+
+}
+
+.section-reviews {
+
+}
+
+.section-cta {
+    width: 100%;
+    background-color: var(--color-grey-light-1);
+    color: var(--color-grey-dark-4);
+    padding: 10rem;
+}
+
+.section-footer {
+    display: flex;
+    flex-direction: column;
+}
+
+.navigation {
+    flex: 0 0 60%;
+
+    display: flex;
+    align-items: center;
+
+    &__list {
+        width: 100%;
+        list-style: none;
+
+        display: flex;
+        justify-content: space-around;
+    }
+
+    &__item {
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    &__link {
+        text-decoration: none;
+
+        &:link,
+        &:visited {
+            color: var(--color-grey-dark-1);
+        }
+
+        &:hover {
+            color: var(--color-primary);
+        }
+    }
+}
+
+.top-links {
+
+    margin-left: auto;
+    display: flex;
+    padding: 1.2rem;
+
+    &__button {
+        color: #A6A2AE;
+        text-decoration: none;
+        min-width: 10rem;
+        display: flex;
+        align-items: center;
+        background-color: #443951;
+        margin-right: 1.5rem;
+        border-radius: 1.5rem;
+        padding: 1rem 2rem;
+
+        &:hover {
+            background-color: darken(#443951, 3%);
+        }
+    }
+
+    &__text {
+        font-size: 1.3rem;
+    }
+
+    &__icon {
+        height: 2rem;
+        width: 2rem;
+        margin-right: 1rem;
+        fill: #A6A2AE;
+
+        &-settings {
+            height: 3rem;
+            width: 3rem;
+            fill: #A6A2AE;
+        }
+    }
+
+    &__icon-button {
+        display: flex;
+        align-items: center;
+    }
+}
+
+.header {
+    width: 100%;
+
+    // border-bottom: var(--line); 
+
+    &__full-box {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__box {
+        max-width: 120rem;
+        display: flex;
+        justify-content: space-between;
+        padding: 3rem 0;
+        margin: auto;
+    }
+    
+    &__brand {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        span {
+            margin-left: 1rem;
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--color-primary);
+        }
+    }
+
+    &__buttons {
+        flex: 0 0 18%;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }   
+}
+
+.app-header {
+    background-color: #291E38;
+    height: 7%;
+    display: flex;
+
+    &__left-side {
+        flex: 0 0 25rem;
+        display: flex;
+        justify-content: space-between;
+        padding: 1.2rem;
+    }
+}
+
+.cta {
+    background-color: var(--color-primary-light);
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    
+    ul {
+        list-style: none;
+        a {
+            text-decoration: none;
+        }
+    }
+
+    &__logo {
+        flex: 0 0 20%;
+        padding: 2rem;
+        color: var(--calor-grey-light-4);
+    }
+
+    &__links {
+        flex: 0 0 40%;
+
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    &__social {
+        flex: 0 0 20%;
+    }
+
+    &__header {
+        font-weight: 600;
+    }
+
+    &__box {
+        padding: 2rem;
+        font-size: 1.4rem;
+        font-weight: 400;
+        width: 20rem;
+    }
+
+    &__links-list {
+        list-style: none;
+        a {
+            text-decoration: none;
+        }
+    }
+
+    &__icon {
+        width: 2.5rem;
+        height: 2.5rem;
+        margin: 1rem;
+        cursor: pointer;
+    }
+
+    &__list {
+        display: flex;
+        list-style: none;
+        margin-right: 2rem;
+
+        &-item {
+            &:not(:last-child) {
+                margin-right: 1rem;
+            }
+
+            a {
+                text-decoration: none;    
+            }
+        }
+    }
+}

@@ -15,7 +15,6 @@ import MastersIcon from "../../assets/SVG/users.svg";
 import ClientIcon from "../../assets/SVG/man.svg";
 import ReservationIcon from "../../assets/SVG/open-book.svg";
 import NoUser from "../../assets/img/no-user.jpg";
-import Logo from "../../assets/img/logo-white.png";
 
 //Redux actions
 import * as actions from "../../store/actions/index";

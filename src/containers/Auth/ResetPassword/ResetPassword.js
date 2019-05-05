@@ -12,6 +12,9 @@ import { updateObject, validation, updateForm } from "../../../shared/utility";
 //Redux actions
 import * as actions from "../../../store/actions/index";
 
+//Layout
+import AuthLayout from "../../../layouts/Auth/Auth";
+
 class ResetPassword extends Component {
     state = {
         form: {
@@ -76,7 +79,7 @@ class ResetPassword extends Component {
 
     render() {
         return (
-            <React.Fragment>
+            <AuthLayout>
                 {!this.props.resetPasswordSuccess && (
                     <React.Fragment>
                         <Form
@@ -84,14 +87,14 @@ class ResetPassword extends Component {
                             onChange={this.inputChangedHandler}
                         />
                         <button
-                            className="btn btn--primary"
+                            className="os-btn os-btn--primary"
                             disabled={!this.state.formIsValid}
                             onClick={this.onSubmitHandler}
                         >
                             Reset
                         </button>
                         <button
-                            className="btn btn--link"
+                            className="os-btn os-btn--link"
                             onClick={this.onLoginPage}
                         >
                             Or, try logging in again.
@@ -114,7 +117,7 @@ class ResetPassword extends Component {
                         </div>
                     </div>
                 )}
-            </React.Fragment>
+            </AuthLayout>
         );
     }
 }

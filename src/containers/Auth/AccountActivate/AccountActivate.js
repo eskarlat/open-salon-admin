@@ -6,6 +6,9 @@ import "./AccountActivate.scss";
 //Redux actions
 import * as actions from "../../../store/actions/index";
 
+//Layout
+import AuthLayout from "../../../layouts/Auth/Auth";
+
 class AccountActivate extends Component {
     componentDidMount() {
         const {
@@ -26,19 +29,21 @@ class AccountActivate extends Component {
 
     render() {
         return (
-            <div className="os-box">
-                <div className="os-box__text">
-                    <span>Account has been success activated</span>
+            <AuthLayout>
+                <div className="os-box">
+                    <div className="os-box__text">
+                        <span>Account has been success activated</span>
+                    </div>
+                    <div className="os-box__buttons">
+                        <button
+                            className="os-btn os-btn--primary"
+                            onClick={this.onLoginPage}
+                        >
+                            Try logging
+                        </button>
+                    </div>
                 </div>
-                <div className="os-box__buttons">
-                    <button
-                        className="btn btn--primary"
-                        onClick={this.onLoginPage}
-                    >
-                        Try logging
-                    </button>
-                </div>
-            </div>
+            </AuthLayout>
         );
     }
 }
