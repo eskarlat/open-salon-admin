@@ -38,12 +38,10 @@ class Index extends Component {
                 <section className="section-presentation">
                     <h1 className="heading-primary u-margin-bottom-big u-margin-top-big u-center-text">
                         <span className="heading-primary--main">
-                            Create your salon online
+                            Open your salon online
                         </span>
                         <span className="heading-primary--sub">
-                            The first project management platform for software
-                            development that brings everyone on every team
-                            together to build better products.
+                            Salon reservation platform.
                         </span>
                     </h1>
                     <form action="#" className="form-try">
