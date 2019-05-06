@@ -350,7 +350,7 @@ class Salons extends Component {
                                 </pre>
                             </p>
                             <textarea className="os-form--input">
-                                {`<script src="http://localhost:3000/static/widget.js?salon=${
+                                {`<script src="https://open-salon.herokuapp.com/static/widget.js?salon=${
                                     this.state.selectedItem
                                 }"></script>`}
                             </textarea>

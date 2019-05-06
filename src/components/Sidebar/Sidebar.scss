@@ -1,15 +1,31 @@
+@import "../../styles/abstracts/mixins";
+
 .os-sidebar {
     flex: 0 0 10px;
 
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+
+    @include respond(phone) { // width < 600?
+        flex-direction: row;
+        justify-content: space-evenly;
+        flex: 0 0 6rem;
+    }
 
     height: 100vh;
     background-color: var(--color-primary);
+
+    &__navigation {
+        display: flex;
+        flex-direction: column;
+
+        @include respond(phone) { // width < 600?
+            flex-direction: row;
+        }
+    }
+
     &__logo {
-        width: 4rem;
         margin: 2.5rem 0;
     }
 
@@ -23,6 +39,11 @@
         padding: 1rem;
         cursor: pointer;
         margin-bottom: .5rem;
+
+        @include respond(phone) { // width < 600?
+            margin-bottom: 0;
+            margin-top: 0;
+        }
 
         &--avatar {
             width: 4rem;

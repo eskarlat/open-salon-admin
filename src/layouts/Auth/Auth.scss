@@ -1,25 +1,32 @@
+@import "../../styles/abstracts/mixins";
+
 .os-auth-layout {
     width: 100vw;
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 }
 
 .section-signin {
-    width: 30vw;
-    height: 70vh;
+    margin-top: 10rem;
+
+    @include respond(phone) { // width < 600?
+        padding: 1rem;
+    }
 }
 
 .footer-signin {
     width: 100%;
-    height: 20vh;
     display: flex;
-    justify-content: center;
-    align-items: flex-end;
     padding: 2rem;
     font-size: 1.2rem;
+    justify-content: center;
+
+    @include respond(phone) { // width < 600?
+        flex-direction: column;
+    }
 }
 
 .footer {
@@ -38,12 +45,17 @@
         a {
             text-decoration: none;
         }
+
     }
 
     &__list {
         display: flex;
         list-style: none;
         margin-right: 2rem;
+
+        @include respond(phone) { // width < 600?
+            justify-content: center;
+        }
 
         &-item {
             &:not(:last-child) {
@@ -104,6 +116,10 @@
 
 .footer__legacy {
     display: flex;
+
+    @include respond(phone) { // width < 600?
+        justify-content: center;
+    }
 
     &-version {
         margin-right: 2rem;

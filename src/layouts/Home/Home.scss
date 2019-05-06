@@ -1,15 +1,4 @@
-.section-presentation {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: var(--color-grey-dark-1);
-    
-    &__picture {
-        border-radius: 7px;
-        box-shadow: var(--shadow-light);
-    }
-}
+@import "../../styles/abstracts/mixins";
 
 .section-features {
 
@@ -24,6 +13,10 @@
     background-color: var(--color-grey-light-1);
     color: var(--color-grey-dark-4);
     padding: 10rem;
+
+    @include respond(phone) { // width < 600?
+        padding: 5rem;
+    }
 }
 
 .section-footer {
@@ -125,23 +118,36 @@
         justify-content: space-between;
         padding: 3rem 0;
         margin: auto;
+
+        @include respond(phone) { // width < 600?
+            justify-content: space-evenly;
+        }
     }
     
     &__brand {
         display: flex;
         justify-content: center;
         align-items: center;
+        
 
         span {
             margin-left: 1rem;
             font-size: 2rem;
             font-weight: 900;
             color: var(--color-primary);
+
+            @include respond(phone) { // width < 600?
+                display: none;
+            }
         }
     }
 
     &__buttons {
-        flex: 0 0 18%;
+        flex: 0 0 20rem;
+
+        @include respond(phone) { // width < 600?
+            flex: 0 0 25rem;
+        }
 
         display: flex;
         justify-content: space-between;

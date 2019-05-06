@@ -1,3 +1,10 @@
+@import "../../styles/abstracts/mixins";
+
 .os-app {
     display: flex;
+
+    @include respond(phone) { // width < 600?
+        flex-direction: column;
+    }
+
 }

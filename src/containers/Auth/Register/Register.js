@@ -143,8 +143,8 @@ class Register extends Component {
                     <div className="os-box">
                         <div className="os-box__text">
                             <span>
-                                Registration wa successful! We sent actiovation
-                                link to your email.
+                                Registration was successful! We have sent
+                                activation link to your email.
                             </span>
                         </div>
                     </div>

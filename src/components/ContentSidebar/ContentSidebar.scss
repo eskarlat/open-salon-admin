@@ -1,5 +1,11 @@
+@import "../../styles/abstracts/mixins";
+
 .os-content-sidebar {
-    flex: 0 0 20%;
+    flex: 0 0 25%;
+
+    @include respond(tab-land) { // width < 600?
+        flex: 0 0 30%;
+    }
 
     background-color: var(--color-grey-light-2);
 

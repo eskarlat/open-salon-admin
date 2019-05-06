@@ -42,7 +42,7 @@ const store = createStore(
 );
 
 //Default url for axios
-axios.defaults.baseURL = "http://localhost:3000/api/";
+axios.defaults.baseURL = "https://open-salon.herokuapp.com/api/";
 
 const app = (
     <Provider store={store}>

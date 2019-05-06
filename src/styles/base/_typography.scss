@@ -4,6 +4,10 @@
         font-size: 6rem;
         font-weight: 400;
         color: currentColor;
+
+        @include respond(phone) { // width < 600?
+            font-size: 3rem;
+        }
     }
     
     &--sub {

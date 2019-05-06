@@ -1,7 +1,13 @@
+@import "../../styles/abstracts/mixins";
+
 .os-content {
     flex: 1;
 
     display: flex;
+
+    @include respond(phone) { // width < 600?
+        flex-direction: column;
+    }
 
     background-color: var(--color-grey-light-1);
 }
