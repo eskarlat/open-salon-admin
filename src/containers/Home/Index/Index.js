@@ -14,7 +14,10 @@ import customer from "../../../assets/img/user-1.jpg";
 
 import iconRocket from "../../../assets/SVG/rocket.svg";
 import iconGauge from "../../../assets/SVG/gauge.svg";
-import iconEmojiFlirt from "../../../assets/SVG/emoji-flirt.svg";
+import iconNews from "../../../assets/SVG/news.svg";
+import iconHeart from "../../../assets/SVG/heart.svg";
+import iconTrophy from "../../../assets/SVG/trophy.svg";
+import iconUser from "../../../assets/SVG/user.svg";
 
 class Index extends Component {
     state = {
@@ -78,11 +81,11 @@ class Index extends Component {
                             />
                             <figcaption className="feature__text">
                                 <h4 className="heading-4">
-                                    Easy set up on your site
+                                    Easy integration in your site
                                 </h4>
                                 <p>
-                                    Lorem ipsum dolor sit amet consectetur
-                                    adipisicing elit.
+                                    Just set up a widget on your site and
+                                    receiving reservations
                                 </p>
                             </figcaption>
                         </figure>
@@ -97,7 +100,8 @@ class Index extends Component {
                                 </svg> */}
                             <figcaption className="feature__text">
                                 <h4 className="heading-4">
-                                    Speed reservation on your site
+                                    Opportunity to book any master and complex
+                                    service
                                 </h4>
                                 <p>
                                     Lorem ipsum dolor sit amet consectetur
@@ -107,7 +111,7 @@ class Index extends Component {
                         </figure>
                         <figure className="feature">
                             <img
-                                src={iconEmojiFlirt}
+                                src={iconUser}
                                 alt="icon"
                                 className="feature__icon"
                             />
@@ -115,7 +119,7 @@ class Index extends Component {
                                     <use xlink:href="img/sprite.svg#icon-emoji-flirt" />
                                 </svg> */}
                             <figcaption className="feature__text">
-                                <h4 className="heading-4">Happy customers</h4>
+                                <h4 className="heading-4">Customer profile</h4>
                                 <p>
                                     Lorem ipsum dolor sit amet consectetur
                                     adipisicing elit.
@@ -124,12 +128,15 @@ class Index extends Component {
                         </figure>
                         <figure className="feature">
                             <img
-                                src={iconEmojiFlirt}
+                                src={iconNews}
                                 alt="icon"
                                 className="feature__icon"
                             />
                             <figcaption className="feature__text">
-                                <h4 className="heading-4">Happy customers</h4>
+                                <h4 className="heading-4">
+                                    Opportunity to add service and master
+                                    descriptions
+                                </h4>
                                 <p>
                                     Lorem ipsum dolor sit amet consectetur
                                     adipisicing elit.
@@ -138,12 +145,14 @@ class Index extends Component {
                         </figure>
                         <figure className="feature">
                             <img
-                                src={iconEmojiFlirt}
+                                src={iconTrophy}
                                 alt="icon"
                                 className="feature__icon"
                             />
                             <figcaption className="feature__text">
-                                <h4 className="heading-4">Happy customers</h4>
+                                <h4 className="heading-4">
+                                    Quick and clear online booking
+                                </h4>
                                 <p>
                                     Lorem ipsum dolor sit amet consectetur
                                     adipisicing elit.
@@ -152,7 +161,7 @@ class Index extends Component {
                         </figure>
                         <figure className="feature">
                             <img
-                                src={iconEmojiFlirt}
+                                src={iconHeart}
                                 alt="icon"
                                 className="feature__icon"
                             />

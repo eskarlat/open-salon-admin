@@ -60,7 +60,8 @@ class Register extends Component {
                 label: "Password",
                 value: "",
                 validation: validation({
-                    required: true
+                    required: true,
+                    min: 8
                 }),
                 valid: false,
                 touched: false
@@ -121,7 +122,7 @@ class Register extends Component {
                             onChange={this.inputChangedHandler}
                         />
                         <button
-                            class="btn btn--primary"
+                            class="os-btn os-btn--primary"
                             disabled={!this.state.formIsValid}
                             onClick={this.onSubmitHandler}
                         >

@@ -94,8 +94,6 @@ export const updateForm = props => {
         formIsValid = updatedForm[key].valid && formIsValid;
     }
 
-    console.log(updatedForm);
-
     return {
         updatedForm: updatedForm,
         formIsValid
